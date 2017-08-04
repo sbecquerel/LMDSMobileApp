@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Vidéos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list [virtualScroll]="videos">
+    <ion-card *virtualItem="let video">
+      <ion-item>
+        <h2>{{video.title}}</h2>
+        <p>{{video.subTitle}}</p>
+      </ion-item>
+      <ion-card-content>
+        <p>{{video.description}}</p>
+        <p class="author" *ngIf="video.teacher">Auteur: <b>{{video.teacher}}</b></p>
+        <div class="tags">
+          <ion-badge *ngFor="let tag of getTags(video.tags)">{{tag}}</ion-badge> 
+        </div>        
+      </ion-card-content>
+      <ion-row align-items-center>
+        <ion-col center text-center>
+          <ion-note *ngIf="video.difficulty">
+            Difficulté: <b>{{video.difficulty}}/10</b>
+          </ion-note>
+        </ion-col>
+        <ion-col center text-center>
+          <button ion-button clear>
+            <ion-icon name="play" (click)="playVideo(video.videoId)"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col text-right>
+          <button ion-button clear>
+            <ion-icon name="star" [isActive]="getFavorite(video.favorite)"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>        
+    </ion-card>
+    
+    <ion-item *virtualItem="let video" detail-push>      
+      <h2>{{video.title}}</h2>
+      <h3>{{video.subTitle}}</h3>
+      <p>{{video.description}}</p>
+      <p *ngIf="video.difficulty">Difficulté: <b>{{video.difficulty}}/10</b></p>
+      <p *ngIf="video.teacher">Auteur: <b>{{video.teacher}}</b></p>
+      <div>
+        <ion-badge *ngFor="let tag of getTags(video.tags)">{{tag}}</ion-badge> 
+      </div>
+      <button ion-button primary (click)="playVideo(video.videoId)">
+        <ion-icon name="play"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+  
+</ion-content>
