@@ -3,8 +3,10 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
+import { VideosPage } from '../pages/videos/videos';
+import { AuthProvider } from '../providers/auth/auth';
+import { UserModel } from './models/user.model';
 
 @Component({
   templateUrl: 'app.html'
@@ -12,19 +14,24 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = VideosPage;
+  loginPage: any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  user: UserModel;
+
+  constructor(
+    public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen,
+    private auth: AuthProvider
+  ) {
     this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+    
+    this.pages = [      
+      { title: 'Vidéos', component: VideosPage },
     ];
-
   }
 
   initializeApp() {
@@ -33,12 +40,21 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.auth.userEvent.subscribe(user => this.user = user);
     });
   }
 
-  openPage(page) {
+  openPage(component) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(component);
+  }
+
+  logout() {
+    this.auth.logout()
+      .subscribe(
+        () => console.log('ok'),
+        () => console.log('error')
+      );
   }
 }
