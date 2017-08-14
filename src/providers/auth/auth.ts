@@ -50,8 +50,7 @@ export class AuthProvider {
   }
 
   logout() {
-    this.user = undefined;
-
-    return this.http.get(`${this.config.apiUrl}/logout`);
+    return this.http.get(`${this.config.apiUrl}/logout`)
+      .do(() => this.user = undefined);
   }
 }
