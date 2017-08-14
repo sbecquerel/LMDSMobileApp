@@ -10,9 +10,6 @@
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.component)">
         {{p.title}}
       </button>
-      <button *ngIf="!user" menuClose ion-item (click)="openPage(loginPage)">
-        Connexion
-      </button>
       <button *ngIf="user" menuClose ion-item (click)="logout()">
         Déconnexion
       </button>
