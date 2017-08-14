@@ -13,6 +13,15 @@ import { AuthProvider } from '../../providers/auth/auth';
 export class VideosPage {
 
   videos: Array<VideoModel> = [];
+  private _searchQuery = '';
+
+  set searchQuery(value: string) {
+    this._searchQuery = value.toLowerCase().trim();
+  }
+
+  get searchQuery(): string {
+    return this._searchQuery;
+  }
 
   constructor(
     public navCtrl: NavController, 
@@ -23,10 +32,18 @@ export class VideosPage {
 
     this.auth.userEvent.subscribe((user: UserModel) => {
       if (user !== undefined) {
-        this.videoProvider.list()
-          .subscribe(videos => this.videos = videos);
+        this._loadVideos();
       }
     })
+  }
+
+  _loadVideos() {
+    this.videoProvider.list()
+      .subscribe(videos => this.videos = videos, err => {
+        if (err.status === 403) {
+          this.auth.user = undefined;
+        }
+      });
   }
 
   playVideo(videoId) {
@@ -46,5 +63,24 @@ export class VideosPage {
     }
 
     return true;
+  }
+
+  getVideos() {
+    this.videoProvider.list()
+      .subscribe(videos => this.videos = videos.filter((video: VideoModel) => {
+        return video.title.concat(video.tags).toLowerCase().indexOf(this.searchQuery) > -1;
+      }), err => {
+        if (err.status === 403) {
+          this.auth.user = undefined;
+        }
+      });
+  }
+
+  getThumbnails(videoId) {
+    return this.videoProvider.thumbnails(videoId);
+  }
+
+  resetList() {
+    this._loadVideos();
   }
 }
