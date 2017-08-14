@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { VideosPage } from '../../pages/videos/videos'
 
 @Component({
   selector: 'page-login',
@@ -12,15 +13,27 @@ export class LoginPage {
 
   authFailed = false;
 
-  constructor(public navCtrl: NavController, private auth: AuthProvider) {
-    
+  constructor(
+    public navCtrl: NavController, 
+    private auth: AuthProvider, 
+    private loadingCtrl: LoadingController) {    
   }
 
   logForm() {
+    let loader = this.loadingCtrl.create({
+      content: "Merci de patienter..."
+    });
+    loader.present();    
     this.auth.authenticate(this.user, this.password)
       .subscribe(
-        () => console.log('ok'),
-        () => this.authFailed = true
+        () => {
+          loader.dismiss();
+          this.navCtrl.setRoot(VideosPage)
+        },
+        () => {
+          loader.dismiss();
+          this.authFailed = true
+        }
       );
   }
 }
