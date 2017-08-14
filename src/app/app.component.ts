@@ -14,11 +14,8 @@ import { UserModel } from './models/user.model';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = VideosPage;
-  loginPage: any = LoginPage;
-
-  pages: Array<{title: string, component: any}>;
-
+  rootPage: any;
+  pages: Array<{title: string, component: any}> = [];
   user: UserModel;
 
   constructor(
@@ -28,10 +25,6 @@ export class MyApp {
     private auth: AuthProvider
   ) {
     this.initializeApp();
-    
-    this.pages = [      
-      { title: 'Vidéos', component: VideosPage },
-    ];
   }
 
   initializeApp() {
@@ -39,8 +32,22 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
-      this.auth.userEvent.subscribe(user => this.user = user);
+      //this.splashScreen.hide();
+      this.auth.userEvent.subscribe((user: UserModel) => {
+        if (user) {
+          this.rootPage = VideosPage;
+          this.pages = [
+            { title: 'Vidéos', component: VideosPage }
+          ];          
+        } else {
+          this.rootPage = LoginPage;
+          this.pages = [
+            { title: 'Connexion', component: LoginPage }
+          ];          
+        }
+        this.user = user;
+        this.splashScreen.hide();
+      })
     });
   }
 
@@ -51,10 +58,11 @@ export class MyApp {
   }
 
   logout() {
+    this.nav.setRoot(LoginPage);
     this.auth.logout()
       .subscribe(
-        () => console.log('ok'),
-        () => console.log('error')
+        () => {},
+        () => this.auth.user = undefined
       );
   }
 }
