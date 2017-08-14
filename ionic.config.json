@@ -4,6 +4,6 @@
   "type": "ionic-angular",
   "proxies": [{
     "path": "/api",
-    "proxyUrl": "http://localhost:8080"
+    "proxyUrl": "http://91.121.152.202:8080"
   }]
 }
