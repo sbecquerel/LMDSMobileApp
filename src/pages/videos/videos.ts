@@ -83,4 +83,17 @@ export class VideosPage {
   resetList() {
     this._loadVideos();
   }
+
+  doRefresh(refresher) {
+    this.videoProvider.list()
+      .subscribe(videos => {
+        this.videos = videos;
+        refresher.complete();
+      }, err => {
+        if (err.status === 403) {
+          this.auth.user = undefined;
+        }
+        refresher.complete();
+      });
+  }
 }
