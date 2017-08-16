@@ -1,0 +1,44 @@
+<!--
+  Generated template for the VideoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Vidéo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>{{video.title}}</ion-card-header>
+    <ion-card-content>
+      <p>{{video.subTitle}}</p>
+      <ion-slides (ionSlideTap)="playVideo()">
+        <ion-slide *ngFor="let thumbnail of getThumbnails()">
+          <ion-img [src]="thumbnail" class="thumbnail"></ion-img>
+        </ion-slide>
+      </ion-slides>
+      <p>{{video.description}}</p>
+      <p class="author" *ngIf="video.teacher">Auteur: <b>{{video.teacher}}</b></p>
+      <div class="tags">
+        <ion-badge *ngFor="let tag of getTags(video.tags)">{{tag}}</ion-badge> 
+      </div>      
+      <ion-row align-items-center>
+        <ion-col center text-left>
+          <ion-note *ngIf="video.difficulty">
+            Difficulté: <b>{{video.difficulty}}/10</b>
+          </ion-note>
+        </ion-col>
+        <ion-col text-right>
+          <button ion-button clear>
+            <ion-icon name="heart" [isActive]="getFavorite(video.favorite)" (click)="setFavorite(video.videoId)"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
