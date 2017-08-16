@@ -11,9 +11,11 @@ export class ConfigProvider {
     return this._apiUrl;
   }
 
+  videoUrl = 'http://91.121.152.202:8080';
+
   constructor(private platform: Platform) {
-    if (this.platform.is('core') || this.platform.is('mobileweb')) {
+    //if (this.platform.is('core') || this.platform.is('mobileweb')) {
       this._apiUrl = '/api';
-    }
+    //}
   }
 }
