@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <!--ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
       pullingText="Tirer pour mettre à jour"
@@ -18,40 +18,10 @@
       refreshingText="Mise à jour..."
     >
     </ion-refresher-content>
-  </ion-refresher>
-  <ion-list [virtualScroll]="videos">    
-    <ion-card *virtualItem="let video">
-      <ion-item>
-        <h2>{{video.title}}</h2>
-        <p>{{video.subTitle}}</p>
-      </ion-item>
-      <ion-slides (ionSlideTap)="playVideo(video.videoId)">
-        <ion-slide *ngFor="let thumbnail of getThumbnails(video.videoId)">
-          <ion-img [src]="thumbnail" class="thumbnail"></ion-img>
-          <!--img [src]="thumbnail"-->
-        </ion-slide>                              
-      </ion-slides>
-      <ion-card-content>
-        <p>{{video.description}}</p>
-        <p class="author" *ngIf="video.teacher">Auteur: <b>{{video.teacher}}</b></p>
-        <div class="tags">
-          <ion-badge *ngFor="let tag of getTags(video.tags)">{{tag}}</ion-badge> 
-        </div>        
-        
-        <ion-row align-items-center>
-          <ion-col center text-left>
-            <ion-note *ngIf="video.difficulty">
-              Difficulté: <b>{{video.difficulty}}/10</b>
-            </ion-note>
-          </ion-col>
-          <ion-col text-right>
-            <button ion-button clear>
-              <ion-icon name="heart" [isActive]="getFavorite(video.favorite)"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-              
-    </ion-card>      
+  </ion-refresher-->
+  <ion-list [virtualScroll]="videos" approxItemHeight="10px">
+    <button ion-item *virtualItem="let video" (click)="goToVideo(video)">
+      {{video.title}}
+    </button>  
   </ion-list>
 </ion-content>
