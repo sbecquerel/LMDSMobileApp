@@ -28,7 +28,6 @@ export class LoginPage {
       .subscribe(
         () => {
           loader.dismiss();
-          this.navCtrl.setRoot(VideosPage)
         },
         () => {
           loader.dismiss();
