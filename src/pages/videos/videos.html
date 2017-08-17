@@ -19,9 +19,16 @@
     >
     </ion-refresher-content>
   </ion-refresher-->
-  <ion-list [virtualScroll]="videos" approxItemHeight="10px">
-    <button ion-item *virtualItem="let video" (click)="goToVideo(video)">
-      {{video.title}}
-    </button>  
+  <ion-list [virtualScroll]="videos" approxItemHeight="10px" [headerFn]="customHeaderFn">
+    <ion-item-divider *virtualHeader="let header">
+      {{header}}
+    </ion-item-divider>
+    <ion-item *virtualItem="let video" (click)="goToVideo(video)">
+      <ion-thumbnail item-start>
+        <img [src]="getSquaredThumbnail(video.videoId)">
+      </ion-thumbnail>
+      <h2>{{video.title}}</h2>
+      <p>{{video.subTitle}}</p>
+    </ion-item>
   </ion-list>
 </ion-content>
