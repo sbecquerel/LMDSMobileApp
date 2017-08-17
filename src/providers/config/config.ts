@@ -15,7 +15,7 @@ export class ConfigProvider {
 
   constructor(private platform: Platform) {
     //if (this.platform.is('core') || this.platform.is('mobileweb')) {
-      this._apiUrl = '/api';
+    //  this._apiUrl = '/api';
     //}
   }
 }
