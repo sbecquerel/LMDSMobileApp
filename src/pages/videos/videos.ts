@@ -93,4 +93,20 @@ export class VideosPage {
   goToVideo(video) {
     this.navCtrl.push(VideoPage, { video });
   }
+
+  customHeaderFn(video: VideoModel, videoIndex, videos: Array<VideoModel>) {
+    if (videoIndex > 0) {
+      if (video.level !== videos[videoIndex - 1].level) {
+        return `Niveau ${video.level}`;
+      } else {
+        return null;
+      }
+    } else {
+      return `Niveau ${video.level}`;
+    }
+  }
+
+  getSquaredThumbnail(videoId) {
+    return this.videoProvider.squaredThumbnail(videoId);
+  }
 }
