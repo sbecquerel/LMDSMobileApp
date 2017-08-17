@@ -2,8 +2,13 @@
   "name": "IonicLMDS",
   "app_id": "",
   "type": "ionic-angular",
-  "proxies": [{
-    "path": "/api",
-    "proxyUrl": "http://91.121.152.202:8080"
-  }]
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://91.121.152.202:8080"
+    }
+  ],
+  "integrations": {
+    "cordova": {}
+  }
 }
