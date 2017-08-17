@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
-import { VideosPage } from '../../pages/videos/videos'
 
 @Component({
   selector: 'page-login',
