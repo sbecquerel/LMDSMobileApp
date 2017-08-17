@@ -20,9 +20,13 @@ export class VideoProvider {
     const thumbnails = [];
 
     for (let i = 1; i <= 4; i++) {
-      thumbnails.push(`${this.config.apiUrl}/video/${videoId}/thumbnail/${i}`);
+      thumbnails.push(`${this.config.apiUrl}/video/${videoId}/thumbnail/320x180/${i}`);
     }
 
     return thumbnails;
+  }
+
+  squaredThumbnail(videoId: Number): String {
+    return `${this.config.apiUrl}/video/${videoId}/thumbnail/180x180`;
   }
 }
