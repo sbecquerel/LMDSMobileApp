@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { VideoPlayerProvider } from '../../providers/video-player/video-player';
 import { VideoProvider } from '../../providers/video/video';
 import { VideoModel } from '../../app/models/video.model';
