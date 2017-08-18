@@ -25,8 +25,8 @@
       <p>{{video.description}}</p>
       <p class="author" *ngIf="video.teacher">Auteur: <b>{{video.teacher}}</b></p>
       <div class="tags">
-        <ion-badge *ngFor="let tag of getTags(video.tags)">{{tag}}</ion-badge> 
-      </div>      
+        <ion-badge *ngFor="let tag of video.tags | tags">{{tag}}</ion-badge> 
+      </div>
       <ion-row align-items-center>
         <ion-col center text-left>
           <ion-note *ngIf="video.difficulty">

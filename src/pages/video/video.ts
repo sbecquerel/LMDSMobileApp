@@ -47,13 +47,6 @@ export class VideoPage {
     console.log(videoId);
   }
 
-  getTags(tags) {
-    if (!tags) {
-      return [];
-    }
-    return tags.split(' ').map(tag => tag.trim())
-  }
-
   getFavorite(favorite) {
     if (favorite === null || favorite === undefined || favorite == 0) {
       return false;
