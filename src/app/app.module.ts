@@ -17,13 +17,15 @@ import { StreamingMedia } from '@ionic-native/streaming-media';
 import { VideoProvider } from '../providers/video/video';
 import { ConfigProvider } from '../providers/config/config';
 import { IonicStorageModule } from '@ionic/storage';
+import { TagsPipe } from '../pipes/tags/tags';
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
     VideosPage,
-    VideoPage
+    VideoPage,
+    TagsPipe
   ],
   imports: [
     BrowserModule,
