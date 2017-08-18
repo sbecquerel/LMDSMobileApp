@@ -23,12 +23,13 @@
     <ion-item-divider *virtualHeader="let header">
       {{header}}
     </ion-item-divider>
-    <ion-item *virtualItem="let video" (click)="goToVideo(video)">
+    <button ion-item *virtualItem="let video" (click)="goToVideo(video)">
       <ion-thumbnail item-start>
         <img [src]="getSquaredThumbnail(video.videoId)">
       </ion-thumbnail>
       <h2>{{video.title}}</h2>
-      <p>{{video.subTitle}}</p>
-    </ion-item>
+      <p>{{video.subTitle}}</p>            
+      <ion-badge *ngFor="let tag of video.tags | tags">{{tag}}</ion-badge> 
+    </button>
   </ion-list>
 </ion-content>
