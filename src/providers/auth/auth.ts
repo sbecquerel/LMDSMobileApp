@@ -43,12 +43,12 @@ export class AuthProvider {
       });
   }
 
-  load(): Promise<any> {
-    return new Promise((resolve, reject) => {
+  load(): Observable<UserModel> {
+    return new Observable(observer => {
       this.storage.get('user')
         .then(user => {
           this.user = JSON.parse(user);
-          resolve();
+          observer.next(this.user);
         });
     });
   }
