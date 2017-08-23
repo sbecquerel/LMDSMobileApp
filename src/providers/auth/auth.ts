@@ -43,6 +43,16 @@ export class AuthProvider {
       });
   }
 
+  load(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.storage.get('user')
+        .then(user => {
+          this.user = JSON.parse(user);
+          resolve();
+        });
+    });
+  }
+
   authenticate(username, password): Observable<UserModel> {
     return this.http.post(`${this.config.apiUrl}/auth`, {username, password})
       .map(res => res.json())
@@ -50,7 +60,7 @@ export class AuthProvider {
   }
 
   logout() {
-    return this.http.get(`${this.config.apiUrl}/logout`)
-      .do(() => this.user = undefined);
+    this.user = undefined;
+    this.http.get(`${this.config.apiUrl}/logout`).subscribe();
   }
 }
