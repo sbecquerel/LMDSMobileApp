@@ -33,7 +33,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
 
-      this.auth.load().then(() => {
+      this.auth.load().subscribe(() => {
         this.auth.userEvent.subscribe((user: UserModel) => {
           if (user) {
             this.rootPage = VideosPage;
