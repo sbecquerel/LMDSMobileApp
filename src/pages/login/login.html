@@ -11,11 +11,11 @@
   <ion-title *ngIf="authFailed">La connexion a échoué</ion-title>
   <form (ngSubmit)="logForm()">
     <ion-item>
-      <ion-label fixed>User</ion-label>
+      <ion-label fixed>Identifiant</ion-label>
       <ion-input type="text" [(ngModel)]="user" name="user"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label fixed>Password</ion-label>
+      <ion-label fixed>Mot de passe</ion-label>
       <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
     </ion-item>    
     <button ion-button type="submit" block>Ok</button>
