@@ -32,22 +32,24 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      //this.splashScreen.hide();
-      this.auth.userEvent.subscribe((user: UserModel) => {
-        if (user) {
-          this.rootPage = VideosPage;
-          this.pages = [
-            { title: 'Vidéos', component: VideosPage }
-          ];          
-        } else {
-          this.rootPage = LoginPage;
-          this.pages = [
-            { title: 'Connexion', component: LoginPage }
-          ];          
-        }
-        this.user = user;
-        this.splashScreen.hide();
-      })
+
+      this.auth.load().then(() => {
+        this.auth.userEvent.subscribe((user: UserModel) => {
+          if (user) {
+            this.rootPage = VideosPage;
+            this.pages = [
+              { title: 'Vidéos', component: VideosPage }
+            ];          
+          } else {
+            this.rootPage = LoginPage;
+            this.pages = [
+              { title: 'Connexion', component: LoginPage }
+            ];          
+          }
+          this.user = user;
+          this.splashScreen.hide();
+        });
+      });
     });
   }
 
@@ -59,10 +61,6 @@ export class MyApp {
 
   logout() {
     this.nav.setRoot(LoginPage);
-    this.auth.logout()
-      .subscribe(
-        () => {},
-        () => this.auth.user = undefined
-      );
+    this.auth.logout();
   }
 }
