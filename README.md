@@ -2,7 +2,7 @@
 ## Run servers
 Run local:  
 `$ ionic serve -cs`  
-Run app in ios device:  
+Run app on ios device:  
 `$ ionic cordova run ios -l -c`  
-Run app in Android device:  
+Run app on Android device:  
 `$ ionic cordova run android -lc --port 8080`
